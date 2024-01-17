@@ -26,14 +26,14 @@ LongNumber::impl::comparison_result LongNumber::impl::comparison(LongNumber cons
         len2++;
     }
 
-    if (len1 > len2) return THIS_GREATER_OTHER;
-    if (len2 > len1) return THIS_LESS_OTHER;
+    if (len1 > len2) return sign ? THIS_GREATER_OTHER : THIS_LESS_OTHER;
+    if (len2 > len1) return sign ? THIS_LESS_OTHER : THIS_GREATER_OTHER;
 
     while(aux1 && aux2){
-        if(aux1->value < aux2->value) return THIS_LESS_OTHER;
-        if(aux1->value > aux2->value) return THIS_GREATER_OTHER;
-        aux1 = aux1->next;
-        aux2 = aux2->next;
+        if(aux1->value < aux2->value) return sign ? THIS_LESS_OTHER : THIS_GREATER_OTHER;
+        if(aux1->value > aux2->value) return sign ? THIS_GREATER_OTHER : THIS_LESS_OTHER;
+        aux1 = aux1->prev;
+        aux2 = aux2->prev;
     }
 
     return THIS_EQUALS_OTHER;
