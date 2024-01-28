@@ -1,6 +1,8 @@
 #include <string>
 #pragma once
 
+#define DEBUG 0
+
 /**
  * @brief Class representing large numbers (bigger than 64bits) with arbitrary bases. 
  * @author Giuliano Assaggio <www.github.com/giulianoassaggio>
@@ -70,13 +72,15 @@ class LongNumber {
          * @param str The string representing the number. If void, Number == 0
          * @param base The base of the number system (default is 10).
          */
-        LongNumber(std::string str, int base = 10);
+        LongNumber(std::string &str);
+        LongNumber(std::string &str, int base);
         /**
          * @brief Constructor from string with specified base.
          * @param str The string representing the number. it MUST end with terminator \0. If void, Number == 0
          * @param base The base of the number system (default is 10).
          */
-        LongNumber(char* str, int base = 10);
+        LongNumber(const char str[]);
+        LongNumber(const char str[], int base);
 
         /**
          * @brief Addition operator.
@@ -404,6 +408,8 @@ class LongNumber {
         */
         LongNumber changeSign() const;
 
+        std::string getNumber() const;
+        
     private:
         struct impl;
         impl* pimpl;
@@ -417,17 +423,17 @@ struct LongNumberException {
 };
 
 /**
- * @brief Output stream operator for LongNumber.
- * @param os The output stream.
- * @param number The LongNumber to output.
- * @return Reference to the output stream.
- */
+* @brief Output stream operator for LongNumber.
+* @param os The output stream.
+* @param number The LongNumber to output.
+* @return Reference to the output stream.
+*/
 std::ostream& operator<<(std::ostream &os, LongNumber const &number);
 
 /**
- * @brief Input stream operator for LongNumber.
- * @param is The input stream.
- * @param number The LongNumber to input.
- * @return Reference to the input stream.
- */
+* @brief Input stream operator for LongNumber.
+* @param is The input stream.
+* @param number The LongNumber to input.
+* @return Reference to the input stream.
+*/
 std::istream& operator>>(std::istream &is, LongNumber const & Number);

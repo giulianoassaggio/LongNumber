@@ -35,7 +35,8 @@ int main() {
     LongNumber num2("9171AF3bc", 16); // base can be specified
     LongNumber num3(12);
     LongNumber num4("-1001010", 2);
-    LongNumber num5(std::string("345678aae88cd"), 15);
+    std::string s("345678aae88cd");
+    LongNumber num5(s, 15);
     num4 += 15;
     num3 += num1;
     num3.invertSign();
