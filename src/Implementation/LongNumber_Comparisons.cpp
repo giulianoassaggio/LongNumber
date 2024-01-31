@@ -4,8 +4,6 @@
  * @brief Compares two LongNumber objects with the same sign and base.
  * @return An enum indicating whether *this is greater than, equal to, or less than 'other'.
  * @warning This function requires both the sign and base to be the same between *this and 'other'.
- * @bug The function compares the absolute values, but if both numbers are negative, the result
- * should be inverted.
  */
 LongNumber::impl::comparison_result LongNumber::impl::comparison(LongNumber const& other) const {
     pcella aux1 = end;
@@ -107,10 +105,6 @@ bool LongNumber::equals(long long other) const{
     LongNumber aux = LongNumber(other);
     return (getBase() == aux.getBase()) && *this==aux;
 }
-/**
- * @bug un numero (valore assoluto) maggiore di un altro, se negativi, è minore, non
- * maggiore 
-*/
 bool LongNumber::operator>=(LongNumber const &other) const{
     if (this->pimpl->sign != other.pimpl->sign){
         return pimpl->sign;
@@ -151,10 +145,6 @@ bool LongNumber::operator>=(long other) const{
 bool LongNumber::operator>=(long long other) const{
     return *this >= LongNumber(other);
 }
-/**
- * @bug un numero (valore assoluto) maggiore di un altro, se negativi, è minore, non
- * maggiore 
-*/
 bool LongNumber::operator<=(LongNumber const &other) const{
     if (this->pimpl->sign != other.pimpl->sign){
         return !(pimpl->sign);
@@ -195,10 +185,6 @@ bool LongNumber::operator<=(long other) const{
 bool LongNumber::operator<=(long long other) const{
     return *this<=LongNumber(other);
 }
-/**
- * @bug un numero (valore assoluto) maggiore di un altro, se negativi, è minore, non
- * maggiore 
-*/
 bool LongNumber::operator<(LongNumber const &other) const{
     if (this->pimpl->sign != other.pimpl->sign){
         return !(pimpl->sign);
@@ -239,10 +225,6 @@ bool LongNumber::operator<(long other) const{
 bool LongNumber::operator<(long long other) const{
     return *this < LongNumber(other);
 }
-/**
- * @bug un numero (valore assoluto) maggiore di un altro, se negativi, è minore, non
- * maggiore 
-*/
 bool LongNumber::operator>(LongNumber const &other) const{
     if (this->pimpl->sign != other.pimpl->sign){
         return (pimpl->sign);

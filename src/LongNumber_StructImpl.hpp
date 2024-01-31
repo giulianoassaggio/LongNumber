@@ -1,4 +1,5 @@
 #include "LongNumber.hpp"
+#include <iostream>
 #pragma once
 
 // private pimpl implementation
@@ -33,7 +34,7 @@ struct LongNumber::impl {
         }
         else {
             pcella aux = new cella{x, nullptr, start};
-            start = start->next = aux;
+            start = start->prev = aux;
         }
     }
     void pop_front(){
@@ -64,8 +65,14 @@ struct LongNumber::impl {
             }
         }
     }
+    impl(){
+        start = end = nullptr;
+        sign = true;
+        base = 10;
+    }
     ~impl(){
         while(start) pop_front();
+        start = end = nullptr;
     }
 
     enum comparison_result{THIS_GREATER_OTHER, THIS_LESS_OTHER, THIS_EQUALS_OTHER};
