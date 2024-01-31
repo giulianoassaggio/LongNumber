@@ -33,9 +33,9 @@ LongNumber LongNumber::changeBase(int newBase) const{
             else {
                 value = (int)(c-'0')+10;
             }
-            LongNumber base_exp; //= wrapped_base^(i++);
-            LongNumber temp; //=base_exp*value;
-            //result_inBase10 += temp;
+            LongNumber base_exp = wrapped_base^(i++);
+            LongNumber temp = base_exp*value;
+            result_inBase10 += temp;
         }
     }
 
@@ -47,8 +47,8 @@ LongNumber LongNumber::changeBase(int newBase) const{
     int r = 0;
     LongNumber result;
     while(result_inBase10 != 0){
-        //r = result_inBase10 % newBase;
-        //result_inBase10 /= newBase;
+        r = result_inBase10 % newBase;
+        result_inBase10 /= newBase;
         char v = (r >= 10 && r <= 15) ? static_cast<char>('A' + (r - 10)) : static_cast<char>('0' + r);
         result.pimpl->push_back(v);
     } 

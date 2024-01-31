@@ -188,9 +188,9 @@ void LongNumber::impl::sub(LongNumber const other){
 LongNumber LongNumber::operator-(LongNumber const &other) const{
     if (pimpl->sign != other.pimpl->sign) {
         LongNumber result(this->changeBase(other.getBase()));
-        //result.invertSign(); // this is because function `add` requires numbers to have same sign
+        result.invertSign(); // this is because function `add` requires numbers to have same sign
         result.pimpl->add(other);
-        //result.invertSign(); // the first sign (same of *this)
+        result.invertSign(); // the first sign (same of *this)
         return result;
     }
     // else
@@ -206,7 +206,7 @@ LongNumber LongNumber::operator-(LongNumber const &other) const{
     else {
         LongNumber aux(other);
         aux.pimpl->sub(this_withBaseChanged);
-        //aux.invertSign();
+        aux.invertSign();
         return aux;
     }
 }
