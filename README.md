@@ -62,10 +62,10 @@ int main() {
 # Features implemented
 
 - constructors
-- comparisons
-- additions
-- substractions
-- base changes
+- comparisons (don't compile due to dependencies on unimplemented functions - power for base change)
+- additions (same)
+- substractions (same)
+- base changes (same)
 
 # Documentation
 ~~Refer to the doxygen-generated documentation in the `docs` folder.~~
