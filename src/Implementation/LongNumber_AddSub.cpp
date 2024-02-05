@@ -82,6 +82,8 @@ LongNumber LongNumber::operator+(LongNumber const &other) const{
     // else
     LongNumber result = changeBase(other.pimpl->base);
     result.pimpl->add(other);
+    result.pimpl->pulisci();
+    if (result == 0) result.pimpl->sign = true;
     return result;
 }
 LongNumber LongNumber::operator+(short other) const{
@@ -190,7 +192,8 @@ LongNumber LongNumber::operator-(LongNumber const &other) const{
         LongNumber result(this->changeBase(other.getBase()));
         result.invertSign(); // this is because function `add` requires numbers to have same sign
         result.pimpl->add(other);
-        result.invertSign(); // the first sign (same of *this)
+        if (result == 0) result.pimpl->sign = true;
+        else result.invertSign(); // the first sign (same of *this)
         return result;
     }
     // else
@@ -198,6 +201,7 @@ LongNumber LongNumber::operator-(LongNumber const &other) const{
     impl::comparison_result comparison = this_withBaseChanged.pimpl->comparison(other);
     if (comparison == impl::THIS_GREATER_OTHER){
         this_withBaseChanged.pimpl->sub(other);
+        this_withBaseChanged.pimpl->pulisci();
         return this_withBaseChanged;
     }
     else if (comparison == impl::THIS_EQUALS_OTHER){

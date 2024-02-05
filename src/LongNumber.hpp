@@ -13,9 +13,8 @@ class LongNumber {
         /**
          * @brief Default constructor with base 10.
          * @param base Optional. The base of the number system (default is 10).
-         * @param sign Optional. true if positive, false if negative (default is true)
          */
-        LongNumber(int base, bool sign);
+        LongNumber(int base);
         LongNumber();
 
         /**
@@ -202,19 +201,17 @@ class LongNumber {
         LongNumber operator/=(unsigned long other);
         LongNumber operator/=(unsigned long long other);
 
+
+        template <typename T>
         /**
-         * @brief Modulo operator.
-         * @param mod The modulus value.
-         * @return Result of the modulo operation.
-         */
-        int operator%(short mod) const;
-        int operator%(int mod) const;
-        int operator%(long mod) const;
-        int operator%(long long mod) const;
-        int operator%(unsigned short mod) const;
-        int operator%(unsigned int mod) const;
-        int operator%(unsigned long mod) const;
-        int operator%(unsigned long long mod) const; 
+         * Calculates LongNumber modulo an integeral type.
+         * types allowed (both signed and unsigned): short, int, long, long long.
+         * @param mod the divisor. It must be > 1. It must be an integeral.
+         * @returns the calculated modulus result, with the same type of the "mod" param
+         * @throws LongNumberException if divisor is negative or <=1; or if mod type is not allowed
+         * 
+        */
+        T LongNumber::operator%(T mod) const;
 
 
         /**
@@ -361,14 +358,16 @@ class LongNumber {
         void setBase(int newBase);
 
         /**
-         * @brief Change the sign of the LongNumber it is called on.
+         * @brief Change the sign of the LongNumber it is called on. If *this == 0, 
+         * sign will remain true, in every case
          * @details it doesn't check actual sign, it simply reassign it
          * @param newSign The new sign to set. must be '+' or '-'
          * @throws LongNumberException if param is invalid
          */
         void setSign(char newSign);
         /**
-         * @brief Change the base of the LongNumber it is called on.
+         * @brief Change the base of the LongNumber it is called on.If *this == 0, 
+         * sign will remain true, in every case
          * @details it doesn't check actual sign, it simply reassign it
          * @param newSign The new sign to set. true if positive or zero, false otherwise
          */
@@ -390,14 +389,14 @@ class LongNumber {
 
         /**
          * @brief it returns a new LongNumber with value equal to the object it is called on, 
-         * but with sign set to `newSign`
+         * but with sign set to `newSign`. If *this == 0, sign will remain true, in every case
          * @param newSign The new sign to set. must be '+' or '-'
          * @throws LongNumberException if param is invalid
          */
         LongNumber changeSign(char newSign) const;
         /**
          * @brief it returns a new LongNumber with value equal to the object it is called on, 
-         * but with sign set to `newSign`
+         * but with sign set to `newSign`. If *this == 0, sign will remain true, in every case
          * @param newSign The new base to set. true if positive or zero, false otherwise
          */
         LongNumber changeSign(bool newSign) const;
