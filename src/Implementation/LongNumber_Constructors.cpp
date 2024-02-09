@@ -5,13 +5,13 @@
 LongNumber::LongNumber(){
     pimpl = new impl;
 }
-LongNumber::LongNumber(int base){
+LongNumber::LongNumber(int base, bool sign){
     if (base < 2 || base > 16){
         throw LongNumberException{"La base deve essere compresa tra 2 e 16"};
     }
     this->pimpl = new impl;
+    pimpl->sign = sign;
     pimpl->base = base;
-    pimpl->sign = true;
 }
 
 // destructor
@@ -69,45 +69,40 @@ LongNumber::LongNumber(unsigned short value){
     pimpl = new impl;
     *this = LongNumber(static_cast<long long>(value));
 }
-// Wraps primitive types to LongNumber Objects
 LongNumber::LongNumber(unsigned int value){
     pimpl = new impl;
     *this = LongNumber(static_cast<long long>(value));
 }
-// Wraps primitive types to LongNumber Objects
 LongNumber::LongNumber(unsigned long value){
     pimpl = new impl;
     *this = LongNumber(static_cast<long long>(value));
 }
-// Wraps primitive types to LongNumber Objects
 LongNumber::LongNumber(unsigned long long  value){
     pimpl = new impl;
     *this = LongNumber(static_cast<long long>(value));
 }
-// Wraps primitive types to LongNumber Objects
 LongNumber::LongNumber(short value){
     pimpl = new impl;
     *this = LongNumber(static_cast<long long>(value));
 }
-// Wraps primitive types to LongNumber Objects
 LongNumber::LongNumber(int value){
     pimpl = new impl;
     *this = LongNumber(static_cast<long long>(value));
 }
-// Wraps primitive types to LongNumber Objects
 LongNumber::LongNumber(long value){
     pimpl = new impl;
     *this = LongNumber(static_cast<long long>(value));
 }
-// Wraps primitive types to LongNumber Objects
 LongNumber::LongNumber(long long value){
     pimpl = new impl;
-    *this = LongNumber();
-
-    if (value == 0) return;
-    if (value < 0) pimpl->sign = false;
+    if (value < 0){
+        *this = LongNumber(10, false);
+        value *= -1;
+    }
+    else *this = LongNumber();
     
     bool finito = false;
+    if (value == 0) pimpl->push_back('0');
     while(!finito){
         if (value / 10 == 0){
             finito = true;
@@ -149,8 +144,6 @@ LongNumber::LongNumber(const char str[], int base){
     std::string s;
     while (*str!='\0') s += *str++;
     *this = LongNumber(s, base);
-    pimpl->pulisci();
-    if (*this == 0) pimpl->sign = true;
 }
 LongNumber::LongNumber(const char str[]){
     pimpl = new impl;
@@ -158,8 +151,6 @@ LongNumber::LongNumber(const char str[]){
     std::string s;
     while (*str!='\0') s += *str++;
     *this = LongNumber(s, 10);
-    pimpl->pulisci();
-    if (*this == 0) pimpl->sign = true;
 }
 LongNumber::LongNumber(std::string& str){
     pimpl = new impl;
@@ -185,6 +176,4 @@ LongNumber::LongNumber(std::string& str, int base){
         else
             pimpl->push_front(std::toupper(str[i]));
     }
-    pimpl->pulisci();
-    if (*this == 0) pimpl->sign = true;
 }

@@ -71,18 +71,6 @@ bool LongNumber::operator==(long other) const{
 bool LongNumber::operator==(long long other) const{
     return *this == LongNumber(other);
 }
-bool LongNumber::operator==(unsigned short other) const{
-    return *this == LongNumber(other);
-}
-bool LongNumber::operator==(unsigned int other) const{
-    return *this == LongNumber(other);
-}
-bool LongNumber::operator==(unsigned long other) const{
-    return *this == LongNumber(other);
-}
-bool LongNumber::operator==(unsigned long long other) const{
-    return *this == LongNumber(other);
-}
 bool LongNumber::operator!=(LongNumber const &other) const{
     return !(*this == other);
 }
@@ -96,18 +84,6 @@ bool LongNumber::operator!=(long other) const{
     return !(*this == LongNumber(other));
 }
 bool LongNumber::operator!=(long long other) const{
-    return !(*this == LongNumber(other));
-}
-bool LongNumber::operator!=(unsigned short other) const{
-    return !(*this == LongNumber(other));
-}
-bool LongNumber::operator!=(unsigned int other) const{
-    return !(*this == LongNumber(other));
-}
-bool LongNumber::operator!=(unsigned long other) const{
-    return !(*this == LongNumber(other));
-}
-bool LongNumber::operator!=(unsigned long long other) const{
     return !(*this == LongNumber(other));
 }
 bool LongNumber::equals(LongNumber const &other) const{
@@ -126,22 +102,6 @@ bool LongNumber::equals(long other) const{
     return (getBase() == aux.getBase()) && *this==aux;
 }
 bool LongNumber::equals(long long other) const{
-    LongNumber aux = LongNumber(other);
-    return (getBase() == aux.getBase()) && *this==aux;
-}
-bool LongNumber::equals(unsigned short other) const{
-    LongNumber aux = LongNumber(other);
-    return (getBase() == aux.getBase()) && *this==aux;
-}
-bool LongNumber::equals(unsigned int other) const{
-    LongNumber aux = LongNumber(other);
-    return (getBase() == aux.getBase()) && *this==aux;
-}
-bool LongNumber::equals(unsigned long other) const{
-    LongNumber aux = LongNumber(other);
-    return (getBase() == aux.getBase()) && *this==aux;
-}
-bool LongNumber::equals(unsigned long long other) const{
     LongNumber aux = LongNumber(other);
     return (getBase() == aux.getBase()) && *this==aux;
 }
@@ -185,18 +145,6 @@ bool LongNumber::operator>=(long other) const{
 bool LongNumber::operator>=(long long other) const{
     return *this >= LongNumber(other);
 }
-bool LongNumber::operator>=(unsigned short other) const{
-    return *this >= LongNumber(other);
-}
-bool LongNumber::operator>=(unsigned int other) const{
-    return *this >= LongNumber(other);
-}
-bool LongNumber::operator>=(unsigned long other) const{
-    return *this >= LongNumber(other);
-}
-bool LongNumber::operator>=(unsigned long long other) const{
-    return *this >= LongNumber(other);
-}
 bool LongNumber::operator<=(LongNumber const &other) const{
     if (this->pimpl->sign != other.pimpl->sign){
         return !(pimpl->sign);
@@ -235,18 +183,6 @@ bool LongNumber::operator<=(long other) const{
     return *this<=LongNumber(other);
 }
 bool LongNumber::operator<=(long long other) const{
-    return *this<=LongNumber(other);
-}
-bool LongNumber::operator<=(unsigned short other) const{
-    return *this<=LongNumber(other);
-}
-bool LongNumber::operator<=(unsigned int other) const{
-    return *this<=LongNumber(other);
-}
-bool LongNumber::operator<=(unsigned long other) const{
-    return *this<=LongNumber(other);
-}
-bool LongNumber::operator<=(unsigned long long other) const{
     return *this<=LongNumber(other);
 }
 bool LongNumber::operator<(LongNumber const &other) const{
@@ -289,18 +225,6 @@ bool LongNumber::operator<(long other) const{
 bool LongNumber::operator<(long long other) const{
     return *this < LongNumber(other);
 }
-bool LongNumber::operator<(unsigned short other) const{
-    return *this < LongNumber(other);
-}
-bool LongNumber::operator<(unsigned int other) const{
-    return *this < LongNumber(other);
-}
-bool LongNumber::operator<(unsigned long other) const{
-    return *this < LongNumber(other);
-}
-bool LongNumber::operator<(unsigned long long other) const{
-    return *this < LongNumber(other);
-}
 bool LongNumber::operator>(LongNumber const &other) const{
     if (this->pimpl->sign != other.pimpl->sign){
         return (pimpl->sign);
@@ -339,17 +263,5 @@ bool LongNumber::operator>(long other) const{
     return *this > LongNumber(other);
 }
 bool LongNumber::operator>(long long other) const{
-    return *this > LongNumber(other);
-}
-bool LongNumber::operator>(unsigned short other) const{
-    return *this > LongNumber(other);
-}
-bool LongNumber::operator>(unsigned int other) const{
-    return *this > LongNumber(other);
-}
-bool LongNumber::operator>(unsigned long other) const{
-    return *this > LongNumber(other);
-}
-bool LongNumber::operator>(unsigned long long other) const{
     return *this > LongNumber(other);
 }
