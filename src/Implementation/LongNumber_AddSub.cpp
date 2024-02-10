@@ -33,6 +33,8 @@ void LongNumber::impl::add(LongNumber const other){
     while (aux1){
         int sum_aux = int((aux1->value-'0') + carry);
         int sum = sum_aux % base;
+        LongNumber auxxxxxx;
+        int auxxxxxxxxxxxxxxxxxx = auxxxxxx % 2;
         carry = sum_aux / base;
         aux1->value = int_to_char(sum);
         aux1 = aux1->next;

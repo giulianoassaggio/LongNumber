@@ -102,15 +102,15 @@ class LongNumber {
          * @param other The LongNumber to add.
          * @return Result of the addition.
          */
-        LongNumber operator+=(LongNumber const &other);
-        LongNumber operator+=(short other);
-        LongNumber operator+=(int other);
-        LongNumber operator+=(long other);
-        LongNumber operator+=(long long other);
-        LongNumber operator+=(unsigned short other);
-        LongNumber operator+=(unsigned int other);
-        LongNumber operator+=(unsigned long other);
-        LongNumber operator+=(unsigned long long other);
+        LongNumber operator+=(LongNumber const &other){return LongNumber();}
+        LongNumber operator+=(short other){return LongNumber();}
+        LongNumber operator+=(int other){return LongNumber();}
+        LongNumber operator+=(long other){return LongNumber();}
+        LongNumber operator+=(long long other){return LongNumber();}
+        LongNumber operator+=(unsigned short other){return LongNumber();}
+        LongNumber operator+=(unsigned int other){return LongNumber();}
+        LongNumber operator+=(unsigned long other){return LongNumber();}
+        LongNumber operator+=(unsigned long long other){return LongNumber();}
 
         /**
          * @brief Subtraction operator.
@@ -132,89 +132,86 @@ class LongNumber {
          * @param other The LongNumber to add.
          * @return Result of the addition.
          */
-        LongNumber operator-=(LongNumber const &other);
-        LongNumber operator-=(short other);
-        LongNumber operator-=(int other);
-        LongNumber operator-=(long other);
-        LongNumber operator-=(long long other);
-        LongNumber operator-=(unsigned short other);
-        LongNumber operator-=(unsigned int other);
-        LongNumber operator-=(unsigned long other);
-        LongNumber operator-=(unsigned long long other);
+        LongNumber operator-=(LongNumber const &other){return LongNumber();}
+        LongNumber operator-=(short other){return LongNumber();}
+        LongNumber operator-=(int other){return LongNumber();}
+        LongNumber operator-=(long other){return LongNumber();}
+        LongNumber operator-=(long long other){return LongNumber();}
+        LongNumber operator-=(unsigned short other){return LongNumber();}
+        LongNumber operator-=(unsigned int other){return LongNumber();}
+        LongNumber operator-=(unsigned long other){return LongNumber();}
+        LongNumber operator-=(unsigned long long other){return LongNumber();}
 
         /**
          * @brief Multiplication operator.
          * @param other The LongNumber to multiply.
          * @return Result of the multiplication.
          */
-        LongNumber operator*(LongNumber const &other) const;
-        LongNumber operator*(short other) const;
-        LongNumber operator*(int other) const;
-        LongNumber operator*(long other) const;
-        LongNumber operator*(long long other) const;
-        LongNumber operator*(unsigned short other) const;
-        LongNumber operator*(unsigned int other) const;
-        LongNumber operator*(unsigned long other) const;
-        LongNumber operator*(unsigned long long other) const;
+        LongNumber operator*(LongNumber const &other) const{return LongNumber();}
+        LongNumber operator*(short other) const{return LongNumber();}
+        LongNumber operator*(int other) const{return LongNumber();}
+        LongNumber operator*(long other) const{return LongNumber();}
+        LongNumber operator*(long long other) const{return LongNumber();}
+        LongNumber operator*(unsigned short other) const{return LongNumber();}
+        LongNumber operator*(unsigned int other) const{return LongNumber();}
+        LongNumber operator*(unsigned long other) const{return LongNumber();}
+        LongNumber operator*(unsigned long long other) const{return LongNumber();}
 
         /**
          * @brief Self-Multiplication operator.
          * @param other The LongNumber to multiply.
          * @return Result of the multiplication.
          */
-        LongNumber operator*=(LongNumber const &other);
-        LongNumber operator*=(short other);
-        LongNumber operator*=(int other);
-        LongNumber operator*=(long other);
-        LongNumber operator*=(long long other);
-        LongNumber operator*=(unsigned short other);
-        LongNumber operator*=(unsigned int other);
-        LongNumber operator*=(unsigned long other);
-        LongNumber operator*=(unsigned long long other);
+        LongNumber operator*=(LongNumber const &other){return LongNumber();}
+        LongNumber operator*=(short other){return LongNumber();}
+        LongNumber operator*=(int other){return LongNumber();}
+        LongNumber operator*=(long other){return LongNumber();}
+        LongNumber operator*=(long long other){return LongNumber();}
+        LongNumber operator*=(unsigned short other){return LongNumber();}
+        LongNumber operator*=(unsigned int other){return LongNumber();}
+        LongNumber operator*=(unsigned long other){return LongNumber();}
+        LongNumber operator*=(unsigned long long other){return LongNumber();}
 
         /**
          * @brief Division operator.
          * @param other The LongNumber to divide by.
          * @return Result of the division.
          */
-        LongNumber operator/(LongNumber const &other) const;
-        LongNumber operator/(short other) const;
-        LongNumber operator/(int other) const;
-        LongNumber operator/(long other) const;
-        LongNumber operator/(long long other) const;
-        LongNumber operator/(unsigned short other) const;
-        LongNumber operator/(unsigned int other) const;
-        LongNumber operator/(unsigned long other) const;
-        LongNumber operator/(unsigned long long other) const;
+        LongNumber operator/(LongNumber const &other) const{return LongNumber();}
+        LongNumber operator/(short other) const{return LongNumber();}
+        LongNumber operator/(int other) const{return LongNumber();}
+        LongNumber operator/(long other) const{return LongNumber();}
+        LongNumber operator/(long long other) const{return LongNumber();}
+        LongNumber operator/(unsigned short other) const{return LongNumber();}
+        LongNumber operator/(unsigned int other) const{return LongNumber();}
+        LongNumber operator/(unsigned long other) const{return LongNumber();}
+        LongNumber operator/(unsigned long long other) const{return LongNumber();}
 
         /**
          * @brief Self-Division operator.
          * @param other The LongNumber to divide by.
          * @return Result of the division.
          */
-        LongNumber operator/=(LongNumber const &other);
-        LongNumber operator/=(short other);
-        LongNumber operator/=(int other);
-        LongNumber operator/=(long other);
-        LongNumber operator/=(long long other);
-        LongNumber operator/=(unsigned short other);
-        LongNumber operator/=(unsigned int other);
-        LongNumber operator/=(unsigned long other);
-        LongNumber operator/=(unsigned long long other);
+        LongNumber operator/=(LongNumber const &other){return LongNumber();}
+        LongNumber operator/=(short other){return LongNumber();}
+        LongNumber operator/=(int other){return LongNumber();}
+        LongNumber operator/=(long other){return LongNumber();}
+        LongNumber operator/=(long long other){return LongNumber();}
+        LongNumber operator/=(unsigned short other){return LongNumber();}
+        LongNumber operator/=(unsigned int other){return LongNumber();}
+        LongNumber operator/=(unsigned long other){return LongNumber();}
+        LongNumber operator/=(unsigned long long other){return LongNumber();}
 
+        template <typename T>
         /**
-         * @brief Modulo operator.
-         * @param mod The modulus value.
-         * @return Result of the modulo operation.
-         */
-        int operator%(short mod) const;
-        int operator%(int mod) const;
-        int operator%(long mod) const;
-        int operator%(long long mod) const;
-        int operator%(unsigned short mod) const;
-        int operator%(unsigned int mod) const;
-        int operator%(unsigned long mod) const;
-        int operator%(unsigned long long mod) const; 
+         * Calculates LongNumber modulo an integeral type.
+         * types allowed (both signed and unsigned): short, int, long, long long.
+         * @param mod the divisor. It must be > 1. It must be an integeral.
+         * @returns the calculated modulus result, with the same type of the "mod" param
+         * @throws LongNumberException if divisor is negative or <=1; or if mod type is not allowed
+         * 
+        */
+        T operator%(T mod) const;
 
 
         /**
@@ -222,14 +219,14 @@ class LongNumber {
          * @param exponent The exponent value.
          * @return Result of raising the number to the power of the exponent.
          */
-        LongNumber operator^(short exponent) const;
-        LongNumber operator^(int exponent) const;
-        LongNumber operator^(long exponent) const;
-        LongNumber operator^(long long exponent) const;
-        LongNumber operator^(unsigned short exponent) const;
-        LongNumber operator^(unsigned int exponent) const;
-        LongNumber operator^(unsigned long exponent) const;
-        LongNumber operator^(unsigned long long exponent) const; 
+        LongNumber operator^(short exponent) const{return LongNumber();}
+        LongNumber operator^(int exponent) const{return LongNumber();}
+        LongNumber operator^(long exponent) const{return LongNumber();}
+        LongNumber operator^(long long exponent) const{return LongNumber();}
+        LongNumber operator^(unsigned short exponent) const{return LongNumber();}
+        LongNumber operator^(unsigned int exponent) const{return LongNumber();}
+        LongNumber operator^(unsigned long exponent) const{return LongNumber();}
+        LongNumber operator^(unsigned long long exponent) const{return LongNumber();}
 
         /**
          * @brief Equality comparison operator. It checks the value, not the base

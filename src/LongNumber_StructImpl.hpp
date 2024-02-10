@@ -89,6 +89,6 @@ struct LongNumber::impl {
     }
     static int char_to_int(char x){
         if (x <= '9') return x-'0';
-        else return x-'A';
+        else return x-'A'+10;
     }
 };
