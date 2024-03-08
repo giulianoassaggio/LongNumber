@@ -10,6 +10,13 @@
 
 
 /**
+ * @brief Custom exception structure for LongNumber errors.
+ */
+struct LongNumberException {
+    std::string msg;
+};
+
+/**
  * @brief Class representing large numbers (bigger than 64bits) with arbitrary bases. 
  * @author Giuliano Assaggio <www.github.com/giulianoassaggio>
  * @date january/february 2024
@@ -208,7 +215,7 @@ class LongNumber {
          * @throws LongNumberException if divisor is negative or <=1; or if mod type is not allowed
          * 
         */
-        T LongNumber::operator%(T mod) const{
+        T operator%(T mod) const{
             if (mod <= 1) throw LongNumberException {"Modulus divisor must be greater than 1"};
             static_assert(std::is_integral_v<T>, "Modulus must be an integral type");
             
@@ -228,7 +235,7 @@ class LongNumber {
             5 % 3 = 2
             -5 % 3 = 1   -> (-2)+3  -> 3 - 2
             */
-            T casted_remainder = explicit_cast(remainder);
+            T casted_remainder = (T)(remainder);
             return sign ? casted_remainder : mod - casted_remainder;
         }
 
@@ -549,7 +556,7 @@ class LongNumber {
         template <typename T>
         T cast_value() const {
             
-            if (std::is_unsigned<T> && !sign)
+            if (std::is_unsigned<T>::value && !sign)
                 return (T) this->changeSign(true);
 
             T limit = std::numeric_limits<T>::max();
@@ -562,7 +569,7 @@ class LongNumber {
             pcell aux = start;
             T i = 0;
             while (aux) {
-                limit += static_cast<T>(aux->value) * static_cast<T>std::pow(BASE16, i);
+                limit += static_cast<T>(aux->value) * static_cast<T>(std::pow(BASE16, i));
                 aux = aux->next;
                 ++i;
             }
@@ -571,13 +578,6 @@ class LongNumber {
 
         // karatsuba algorithm implementation
         static LongNumber karatsuba(LongNumber first, LongNumber second);
-};
-
-/**
- * @brief Custom exception structure for LongNumber errors.
- */
-struct LongNumberException {
-    std::string msg;
 };
 
 /**

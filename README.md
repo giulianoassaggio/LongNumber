@@ -1,7 +1,7 @@
  
 # LongNumber Class
 
-A C++ class for handling large numbers (greater than 64 bits) with arbitrary bases.
+A C++ class for handling large integer numbers (greater than 64 bits) with arbitrary bases. Please note that the class isn't complete, doesn't compile and has never been tested.
 
 ## Overview
 
@@ -9,63 +9,31 @@ The `LongNumber` class is designed to represent large numbers with arbitrary bas
 
 ## Dependecies
 
-It does not rely on anthing but standard library (in particular, it includes `string`).
+It does not rely on anthing but standard library 
 
 ## General features (below: feature yet implemented)
 
 - Handles large numbers with arbitrary bases.
 - Implements base conversion tools
-- Arithmetic operations implemented: comparisons, addition, subtraction, multiplication, division, modulo and power, everything both signed and unsigned
+- Arithmetic operations: comparisons, addition, subtraction, multiplication, division, modulo and power, everything both signed and unsigned
 - Supports operations between LongNumbers with different bases
 - Supports operations between LongNumbers and primitive types
 - Constructor overloads for different numeric types and string representations.
 - Custom exceptions for error handling.
 - Designed with ease of use and flexibility in mind.
 
-## Usage
-
-Here's a basic example demonstrating the usage of the `LongNumber` class:
-
-```cpp
-#include "LongNumber.hpp"
-#include <iostream>
-
-int main() {
-    LongNumber num1("123456789012345678901234567890"); // default base is 10
-    LongNumber num2("9171AF3bc", 16); // base can be specified
-    LongNumber num3(12);
-    LongNumber num4("-1001010", 2);
-    std::string s("345678aae88cd");
-    LongNumber num5(s, 15);
-    num4 += 15;
-    num3 += num1;
-    num3.invertSign();
-    num5 = (num2.changeSign('+')).changeBase(num3.getBase());
-    bool compare = num1 >= num2;
-
-    std::cout << "operation allowed: " << num1 + num2 << std::endl;
-    std::cout << "operation allowed: " << num1 - num3 << std::endl;
-    std::cout << "operation allowed: " << num4.changeBase(10) << std::endl;
-    std::cout << "operation allowed: " << num3 % 100 << std::endl;
-    std::cout << "operation allowed: " << num1 ^ 10 << std::endl;
-    std::cout << "operation allowed: " << num3 * 15 << std::endl;
-    std::cout << "operation allowed: " << num3 / num1 << std::endl;
-
-    /*
-        AND SO ON
-    */
-
-    return 0;
-}
-```
 
 # Features implemented
 
 - constructors
-- comparisons (don't compile due to dependencies on unimplemented functions - power for base change)
-- additions (same)
-- substractions (same)
-- base changes (same)
+- comparisons
+- additions
+- substractions
+- base changes
+- multiplications
+- type casting
+- input/output
+- modulus
 
 # Documentation
 ~~Refer to the doxygen-generated documentation in the `docs` folder.~~
