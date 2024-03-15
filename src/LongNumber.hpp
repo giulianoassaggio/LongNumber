@@ -1,3 +1,4 @@
+#include <vector>
 #include <string>
 #include <type_traits>
 #include <limits>
@@ -179,6 +180,7 @@ class LongNumber {
          * @brief Division operator.
          * @param other The LongNumber to divide by.
          * @return Result of the division.
+         * @throws LongNumberException if divisor is 0
          */
         LongNumber operator/(LongNumber const &other) const;
         LongNumber operator/(short other) const;
@@ -194,6 +196,7 @@ class LongNumber {
          * @brief Self-Division operator.
          * @param other The LongNumber to divide by.
          * @return Result of the division.
+         * @throws LongNumberException if divisor is 0
          */
         LongNumber& operator/=(LongNumber const &other);
         LongNumber& operator/=(short other);
@@ -244,6 +247,8 @@ class LongNumber {
          * @brief Power operator.
          * @param exponent The exponent value.
          * @return Result of raising the number to the power of the exponent.
+         * @details the time complexity is O(log n) * every multiplication subroutine ~O(x^1.585), where n is the exponent and 
+         * x is the number of digits of the two numbers involved in multiplication.
          */
         LongNumber operator^(short exponent) const;
         LongNumber operator^(int exponent) const;
@@ -452,7 +457,6 @@ class LongNumber {
     private:
         long long size;
         bool sign;  // true if positive or 0, false if negative
-
         /* 
         * numbers are stored as hexadecimal in a doubly linked list, in reverse order (little endian)
         * start=nullptr => Number=0. not viceversa. (number 0 can also be explicity written)
@@ -467,7 +471,7 @@ class LongNumber {
         pcell start;
         pcell end;  
 
-        void push_back(char x){
+        LongNumber push_back(char x){
             if (end == nullptr){
                 start = end = new cell{x, nullptr, nullptr};
             }
@@ -476,8 +480,9 @@ class LongNumber {
                 end = end->next = aux;
             }
             size++;
+            return *this;
         }
-        void push_front(char x){
+        LongNumber push_front(char x){
             if (start == nullptr){
                 start = end = new cell{x, nullptr, nullptr};
             }
@@ -486,8 +491,9 @@ class LongNumber {
                 start = start->prev = aux;
             }
             size++;
+            return *this;
         }
-        void pop_front(){
+        LongNumber pop_front(){
             if (start != nullptr){
                 if (start->next == nullptr){
                     delete start;
@@ -501,8 +507,9 @@ class LongNumber {
                 }
             }
             size--;
+            return *this;
         }
-        void pop_back(){
+        LongNumber pop_back(){
             if (end != nullptr){
                 if (end->prev == nullptr){
                     delete end;
@@ -516,6 +523,7 @@ class LongNumber {
                 }
             }
             size--;
+            return *this;
         }
 
         /* * * * * * * * * * * 
@@ -578,6 +586,33 @@ class LongNumber {
 
         // karatsuba algorithm implementation
         static LongNumber karatsuba(LongNumber first, LongNumber second);
+
+        /**
+         * @brief division algorithm
+         * @details Implements a long division algorithm similar to how it's performed manually. If numbers are small enough, it uses built-in operations.
+         * @throws LongNumberException if divisor is 0
+        */
+        static LongNumber long_division_algorithm(LongNumber dividend, LongNumber divisor);
+
+
+        /**
+         * @brief it uses squaring method 
+         * @warning it handles only positive exponents
+        */
+        template <typename T>
+        static LongNumber squared_power(LongNumber base, T exponent) {
+            if (exponent == 0) {
+                return LongNumber(1);
+            }
+
+            if (exponent % 2 == 0) {
+                LongNumber halfPower = squared_power(base, exponent / 2);
+                LongNumber result =  halfPower * halfPower;
+                return result;
+            } else {
+                return base * squared_power(base, exponent - 1);
+            }
+        }
 };
 
 /**

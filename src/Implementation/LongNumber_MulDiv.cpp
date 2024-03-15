@@ -1,6 +1,7 @@
 #include "../LongNumber.hpp"
 
 #define LONG_MAX_SQRT static_cast<unsigned long long> (std::sqrt(std::numeric_limits<unsigned long long>::max()));
+#define LONG_MAX static_cast<unsigned long long> (std::numeric_limits<unsigned long long>::max());
 
 
 LongNumber LongNumber::karatsuba(LongNumber first, LongNumber second) {
@@ -9,6 +10,14 @@ LongNumber LongNumber::karatsuba(LongNumber first, LongNumber second) {
     // by unsigned long long, perform multiplication using primitive types to optimize performance.
     // This is because in this way the largest result i can get does still fit in long long type.
     // Otherwise, switch to Kartsuba algorithms to handle larger numbers.
+    if (first == 16) {
+        second.push_front('0');
+        return second;
+    }
+    else if (second == 16) {
+        first.push_front('0');
+        return first;
+    }
     static const unsigned long long limit = LONG_MAX_SQRT;
     if (first < limit && second < limit) {
         unsigned long long result = ((unsigned long long) first) * ((unsigned long long) second);
@@ -101,146 +110,282 @@ LongNumber LongNumber::operator*(LongNumber const &other) const{
     return result;
 }
 LongNumber LongNumber::operator*(short other) const{
-
+    return *this * LongNumber(other);
 }
 LongNumber LongNumber::operator*(int other) const{
-
+    return *this * LongNumber(other);
 }
 LongNumber LongNumber::operator*(long other) const{
-
+    return *this * LongNumber(other);
 }
 LongNumber LongNumber::operator*(long long other) const{
-
+    return *this * LongNumber(other);
 }   
 LongNumber LongNumber::operator*(unsigned short other) const{
-
+    return *this * LongNumber(other);
 }
 LongNumber LongNumber::operator*(unsigned int other) const{
-
+    return *this * LongNumber(other);
 }
 LongNumber LongNumber::operator*(unsigned long other) const{
-
+    return *this * LongNumber(other);
 }
 LongNumber LongNumber::operator*(unsigned long long other) const{
-
+    return *this * LongNumber(other);
 }
-
-
 
 
 LongNumber& LongNumber::operator*=(LongNumber const &other){
-
+    *this = LongNumber(other);
+    return *this;
 }
 LongNumber& LongNumber::operator*=(short other){
-
+    *this = LongNumber(other);
+    return *this;
 }
 LongNumber& LongNumber::operator*=(int other){
-
+    *this = LongNumber(other);
+    return *this;
 }
 LongNumber& LongNumber::operator*=(long other){
-
+    *this = LongNumber(other);
+    return *this;
 }
 LongNumber& LongNumber::operator*=(long long other){
-
+    *this = LongNumber(other);
+    return *this;
 }
 LongNumber& LongNumber::operator*=(unsigned short other){
-
+    *this = LongNumber(other);
+    return *this;
 }
 LongNumber& LongNumber::operator*=(unsigned int other){
-
+    *this = LongNumber(other);
+    return *this;
 }
 LongNumber& LongNumber::operator*=(unsigned long other){
-
+    *this = LongNumber(other);
+    return *this;
 }
 LongNumber& LongNumber::operator*=(unsigned long long other){
-
+    *this = LongNumber(other);
+    return *this;
 }
 
 
+LongNumber LongNumber::long_division_algorithm(LongNumber dividend, LongNumber divisor) {
+    if (divisor == 0)
+        throw LongNumberException{"LongNumber:operator/(): Cannot divide by zero"};
 
+    if (dividend < divisor)
+        return LongNumber("0"); // If dividend < divisor, result is 0
+
+    
+}
+
+LongNumber LongNumber::long_division_algorithm(LongNumber dividend, LongNumber divisor) {
+    if (divisor == 16) 
+        return char_to_int(dividend.end->value);
+
+    if (divisor == 0)
+        throw LongNumberException{"LongNumber:operator/(): Cannot divide by zero"};
+
+    if (dividend < divisor)
+        return 0; // If dividend < divisor, result is 0
+
+    static constexpr unsigned long long limit = LONG_MAX;
+    if (dividend < limit && divisor < limit) {
+        unsigned long long result = (unsigned long long) dividend / (unsigned long long) divisor;
+        return result;
+    }
+/*
+IN THE FIRST TIME, i implemented the exact algortithm i use when I compute division with pen and paper:
+- you take the first N digits of the dividend that form a number greater than the divisor
+- you substract X times the divisor from the temporary number just created, and X is the current digit of quotient
+- you reattach remaining digits of temp to original dividend. 
+- If dividend is still greater than divisor, you add a digit to the quotient and repeat, else you can return quotient directly.
+
+
+    LongNumber result;
+    LongNumber temp;
+    while (dividend >= divisor) {
+        while(temp < divisor){
+            temp.push_front(dividend.end->value);
+            dividend.pop_back();
+        }
+        while(temp > divisor){
+            temp -= divisor;
+            result += 1;
+        }
+        while(temp.start) {
+            dividend.push_back(temp.start->value);
+            temp.pop_front();
+        }
+        if (dividend > divisor){
+            result.push_front('0');
+        }
+    }
+    return result;
+
+THEN, i opted for this modified version. Please note that dividend is passed by copy, so it can be modified in the function.
+In this algorithm:
+- you compute the order of magnitude of the quotient, left-shifting the divisor enough to make it the closest possible to the dividend
+- then you compute how many times you have to substract divisor from divident, to compute the current digit of the quotient.
+- then you right-shift the number and repeat the algorithm to compute every remaining digit od the quotient
+*/
+    LongNumber quotient;
+    LongNumber temp;
+    
+    while (dividend >= divisor) {
+        temp = divisor;
+        LongNumber multiple(1);
+
+        // Find the multiple of divisor closest to dividend
+        while (temp.push_front('0') <= dividend) {
+            temp.push_front('0');
+            multiple.push_front('0');
+        }
+
+        // Subtract multiples of divisor from dividend until it's less than divisor
+        while (dividend >= divisor) {
+            if (dividend >= temp) {
+                dividend -= temp;
+                quotient += multiple;
+            }
+            temp.pop_front();
+            multiple.pop_front();
+        }
+    }
+
+    return quotient;
+}
+ 
 LongNumber LongNumber::operator/(LongNumber const &other) const{
-
+    //Handle the sign of the result
+    LongNumber result {0};
+    result = long_division_algorithm(this->changeSign(true), other.changeSign(true));
+    result.setSign(this->getSignAsBoolean() == other.getSignAsBoolean() ? true : false);
+    return result;
 }
 LongNumber LongNumber::operator/(short other) const{
-
+    return *this / LongNumber(other);
 }
 LongNumber LongNumber::operator/(int other) const{
-
+    return *this / LongNumber(other);
 }
 LongNumber LongNumber::operator/(long other) const{
-
+    return *this / LongNumber(other);
 }
 LongNumber LongNumber::operator/(long long other) const{
-
+    return *this / LongNumber(other);
 }
 LongNumber LongNumber::operator/(unsigned short other) const{
-
+    return *this / LongNumber(other);
 }
 LongNumber LongNumber::operator/(unsigned int other) const{
-
+    return *this / LongNumber(other);
 }
 LongNumber LongNumber::operator/(unsigned long other) const{
-
+    return *this / LongNumber(other);
 }
 LongNumber LongNumber::operator/(unsigned long long other) const{
-
+    return *this / LongNumber(other);
 }
 
 
 
 
 LongNumber& LongNumber::operator/=(LongNumber const &other){
-
+    *this = *this / other;
+    return *this;
 }
 LongNumber& LongNumber::operator/=(short other){
-
+    *this = *this / other;
+    return *this;
 }
 LongNumber& LongNumber::operator/=(int other){
-
+    *this = *this / other;
+    return *this;
 }
 LongNumber& LongNumber::operator/=(long other){
-
+    *this = *this / other;
+    return *this;
 }
 LongNumber& LongNumber::operator/=(long long other){
-
+    *this = *this / other;
+    return *this;
 }
 LongNumber& LongNumber::operator/=(unsigned short other){
-
+    *this = *this / other;
+    return *this;
 }
 LongNumber& LongNumber::operator/=(unsigned int other){
-
+    *this = *this / other;
+    return *this;
 }
 LongNumber& LongNumber::operator/=(unsigned long other){
-
+    *this = *this / other;
+    return *this;
 }
 LongNumber& LongNumber::operator/=(unsigned long long other){
-
+    *this = *this / other;
+    return *this;
 }
-
-
 
 
 LongNumber LongNumber::operator^(short exponent) const{
-
+    if (exponent < 0) 
+        throw LongNumberException{
+            "LongNumber::operator^(): exponent must be a positive value"
+        };
+    return squared_power(*this, exponent);
 }
 LongNumber LongNumber::operator^(int exponent) const{
-
+    if (exponent < 0) 
+        throw LongNumberException{
+            "LongNumber::operator^(): exponent must be a positive value"
+        };
+    return squared_power(*this, exponent);
 }
 LongNumber LongNumber::operator^(long exponent) const{
-
+    if (exponent < 0) 
+        throw LongNumberException{
+            "LongNumber::operator^(): exponent must be a positive value"
+        };
+    return squared_power(*this, exponent);
 }
 LongNumber LongNumber::operator^(long long exponent) const{
-
+    if (exponent < 0) 
+        throw LongNumberException{
+            "LongNumber::operator^(): exponent must be a positive value"
+        };
+    return squared_power(*this, exponent);
 }
 LongNumber LongNumber::operator^(unsigned short exponent) const{
-
+    if (exponent < 0) 
+        throw LongNumberException{
+            "LongNumber::operator^(): exponent must be a positive value"
+        };
+    return squared_power(*this, exponent);
 }
 LongNumber LongNumber::operator^(unsigned int exponent) const{
-
+    if (exponent < 0) 
+        throw LongNumberException{
+            "LongNumber::operator^(): exponent must be a positive value"
+        };
+    return squared_power(*this, exponent);
 }
 LongNumber LongNumber::operator^(unsigned long exponent) const{
-
+    if (exponent < 0) 
+        throw LongNumberException{
+            "LongNumber::operator^(): exponent must be a positive value"
+        };
+    return squared_power(*this, exponent);
 }
 LongNumber LongNumber::operator^(unsigned long long exponent) const{
-
+    if (exponent < 0) 
+        throw LongNumberException{
+            "LongNumber::operator^(): exponent must be a positive value"
+        };
+    return squared_power(*this, exponent);
 }
