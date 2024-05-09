@@ -1,4 +1,4 @@
- 
+**development suspended, currently not working**
 # LongNumber Class
 
 A C++ class for handling large integer numbers (greater than 64 bits) with arbitrary bases. Please note that the class isn't complete, doesn't compile and has never been tested.
